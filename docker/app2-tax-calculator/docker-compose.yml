@@ -1,0 +1,45 @@
+# services:
+  # service-a:
+  #   build: ./node/service-a
+  #   ports:
+  #     - "3100:3000"
+  #   depends_on:
+  #     - service-b
+  #   environment:
+  #     - TAX_SERVICE_URL=http://service-b:4000
+
+  # service-b:
+  #   build: ./node/service-b
+  #   ports:
+  #     - "3200:4000"
+
+# services:
+  # service-a:
+  #   build: ./spring/service-a
+  #   ports:
+  #     - "3100:3000"
+  #   depends_on:
+  #     - service-b
+  #   environment:
+  #     - TAX_SERVICE_URL=http://service-b:4000
+
+  # service-b:
+  #   build: ./spring/service-b
+  #   ports:
+  #     - "3200:4000"
+
+
+services:
+  service-a:
+    build: ./python/service-a
+    ports:
+      - "3100:3000"
+    depends_on:
+      - service-b
+    environment:
+      - TAX_SERVICE_URL=http://service-b:4000
+
+  service-b:
+    build: ./spring/service-b
+    ports:
+      - "3200:4000"
