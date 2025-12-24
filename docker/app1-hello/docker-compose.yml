@@ -1,0 +1,25 @@
+services:
+  hello-py:
+    build: ./python
+    image: dcode007/hello-python:1.0
+    ports:
+      - "3000:3000"
+    environment:
+      - ENV_VALUE=${ENV_VALUE_PYTHON}
+
+  hello-node:
+    build: ./node
+    image: dcode007/hello-node:1.0
+    ports:
+      - "3001:3000"
+    environment:
+      - ENV_VALUE=${ENV_VALUE_NODE}
+
+
+  hello-spring:
+    build: ./springboot/hello-spring
+    image: dcode007/hello-spring:1.0
+    ports:
+      - "8080:8080"
+    environment:
+      - ENV_VALUE=${ENV_VALUE_SPRING}
