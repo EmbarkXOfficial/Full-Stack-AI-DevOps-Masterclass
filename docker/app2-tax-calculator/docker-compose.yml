@@ -39,15 +39,25 @@ services:
     environment:
       - TAX_SERVICE_URL=http://service-b:4000
       - FRONTEND_URL=http://localhost:5173
+    networks:
+      - tax-network
 
   service-b:
     build: ./spring/service-b
     ports:
       - "3200:4000"
-
+    networks:
+      - tax-network
+      
   frontend:
     build: ./tax-calculator-frontend
     ports:
       - "5173:80"
     depends_on:
       - service-a
+    networks:
+      - tax-network
+
+networks:
+  tax-network:
+    driver: bridge
