@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-a
+  template:
+    metadata:
+      labels:
+        app: service-a
+    spec:
+      containers:
+        - name: service-a
+          image: embarkx/tax-service-a:latest
+          env:
+            - name: TAX_SERVICE_URL
+              value: "http://service-b:4000"
+          # env:
+          #   - name: ENV_VALUE
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: hello-app-config
+          #         key: HELLO_APP_MESSAGE
+          #   - name: DB_PASSWORD
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: hello-db-secret
+          #         key: HELLO_DB_PASSWORD
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-a
+spec:
+  selector:
+    app: service-a
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000  
+      nodePort: 32000
