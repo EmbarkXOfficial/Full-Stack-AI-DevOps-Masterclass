@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1-hello
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app1-hello
+  template:
+    metadata:
+      labels:
+        app: app1-hello
+    spec:
+      containers:
+        - name: app1-hello
+          image: embarkx/hello-spring:latest
+          env:
+            - name: ENV_VALUE
+              value: "Hello from app.yaml"
+            - name: DB_PASSWORD
+              value: "cGFzc3dvcmQ=" # base64 for 'password'
+          # env:
+          #   - name: ENV_VALUE
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: hello-app-config
+          #         key: HELLO_APP_MESSAGE
+          #   - name: DB_PASSWORD
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: hello-db-secret
+          #         key: HELLO_DB_PASSWORD
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1-hello
+spec:
+  selector:
+    app: app1-hello
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080  
