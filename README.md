@@ -1,4 +1,4 @@
-This is the Official repository of **⭐ Full Stack DevOps for Software Developers (AWS, Azure, GCP)	** on Udemy
+This is the Official repository of **⭐ Full Stack DevOps for Software Developers (AWS, Azure, GCP)** on Udemy
 
 # The Ultimate Java and Spring Boot Mastery Roadmap
 
