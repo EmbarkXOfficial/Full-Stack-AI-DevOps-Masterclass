@@ -1,0 +1,109 @@
+name: Real Dev CI Demo (Echo Only)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ci-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ------------------------------------------------------
+      # STEP 1 → CHECKOUT CODE
+      # ------------------------------------------------------
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ------------------------------------------------------
+      # STEP 2 → INSTALL DEPENDENCIES (SIMULATED)
+      # ------------------------------------------------------
+      - name: Install Dependencies (Java/Node/Python)
+        run: |
+          echo "Installing Java dependencies → mvn install"
+          echo "Installing Node dependencies → npm install"
+          echo "Installing Python deps → pip install -r requirements.txt"
+          echo "Dependencies installed."
+
+      # ------------------------------------------------------
+      # STEP 3 → LINT (SIMULATED)
+      # ------------------------------------------------------
+      - name: Lint Code (Simulated)
+        run: |
+          echo "Running linter..."
+          echo "Simulating: eslint . || flake8 || mvn checkstyle"
+          echo "Lint result: No issues found."
+
+      # ------------------------------------------------------
+      # STEP 4 → BUILD (SIMULATED)
+      # ------------------------------------------------------
+      - name: Build Project (Simulated)
+        run: |
+          echo "Building project for all languages..."
+          echo "Java → mvn clean package"
+          echo "Node → npm run build"
+          echo "Python → python setup.py build"
+          echo "Build step completed."
+
+      # ------------------------------------------------------
+      # STEP 5 → RUN TESTS (SIMULATED)
+      # ------------------------------------------------------
+      - name: Test Project (Simulated)
+        run: |
+          echo "Running unit tests..."
+          echo "Java → mvn test"
+          echo "Node → npm test"
+          echo "Python → pytest"
+          echo "All test suites passed successfully."
+
+      # ------------------------------------------------------
+      # STEP 6 → PACKAGE ARTIFACTS (SIMULATED)
+      # ------------------------------------------------------
+      - name: Package Artifacts (Simulated)
+        run: |
+          echo "Packaging build artifacts..."
+          echo "Simulating .jar, .zip, build folders"
+          echo "Artifacts ready for upload."
+
+      # ------------------------------------------------------
+      # STEP 7 → UPLOAD ARTIFACTS (SIMULATED)
+      # ------------------------------------------------------
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-demo
+          path: .
+        # Uploading entire folder just for demo, not real.
+
+      # ------------------------------------------------------
+      # STEP 8 → DOCKER BUILD (SIMULATED)
+      # ------------------------------------------------------
+      - name: Build Docker Image (Simulated)
+        run: |
+          echo "Building Docker image..."
+          echo "docker build -t myapp:latest ."
+          echo "Docker image built."
+
+      # ------------------------------------------------------
+      # STEP 9 → DOCKER PUSH (SIMULATED)
+      # ------------------------------------------------------
+      - name: Push Docker Image (Simulated)
+        run: |
+          echo "Logging into Docker registry..."
+          echo "docker push myapp:latest"
+          echo "Image pushed."
+
+      # ------------------------------------------------------
+      # STEP 10 → NOTIFICATION + FAILURE DEMO
+      # ------------------------------------------------------
+      - name: Final Status
+        run: echo "CI pipeline finished."
+
+      - name: Intentional Failure (Debug Demo)
+        run: |
+          echo "Simulating failure for debugging..."
+          exit 1
+
+      - name: Failure Handler
+        if: failure()
+        run: echo "Pipeline failed. Check logs above!"
